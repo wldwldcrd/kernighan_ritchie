@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int power(int m, int n);
+int power();
 
 void main() {
     for (int i = 0; i < 10; ++i)
@@ -8,9 +8,9 @@ void main() {
 }
 
 int power(int base, int n) {
-    int res = 1;
+    int res;
 
-    for (int i = 0; i < n; i++) {
+    for (res = 1; n > 0; --n) {
         res *= base;
     }
     
