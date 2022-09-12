@@ -1,5 +1,8 @@
 #include "1_9_longest_string.c"
 
-void main() {
+int main()
+{
     print_longest_string();
+
+    return 0;
 }
