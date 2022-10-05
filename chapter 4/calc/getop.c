@@ -7,22 +7,44 @@ void ungetch(int);
 
 int getop(char s[])
 {
-    int i, c, sign;
+    int i;
+    static int c = ' ';
 
-    while ((s[0] = c = getch()) == ' ' || c == '\t')
-        ;
+    while ((s[0] = c) == ' ' || c == '\t')
+        c = getchar();
     s[1] = '\0';
     if (!isdigit(c) && c != '.' && c != '-')
-        return c; // not value
+    {
+        i = c;
+        c = ' ';
+        return i; // not value
+    }
     i = 0;
-    if (isdigit(c) || c == '-') // value
-        while (isdigit(s[++i] = c = getch()))
+    // sign
+    if (c == '-')
+    {
+        s[++i] = c = getchar();
+        if (!isdigit(c))
+        {
+            return '-';
+        }
+    }
+
+    if (isdigit(c)) // value
+        while (isdigit(s[++i] = c = getchar()))
             ;
     if (c == '.')
-        while (isdigit(s[++i] = c = getch()))
+        while (isdigit(s[++i] = c = getchar()))
             ;
+    if (i == 0)
+    {
+        i = c;
+        c = ' ';
+        return i; // not value
+    }
+
     s[i] = '\0';
-    if (c != '\n')
-        ungetch(c);
+    // if (c != '\n')
+    //     ungetch(c);
     return NUMBER;
 }
