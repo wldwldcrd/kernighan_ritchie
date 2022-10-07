@@ -6,10 +6,10 @@
     "configurations": [
         {
             "type": "cppdbg",
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}\\chapter_5",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\chapter 4\\calc\\a.out"
+            "program": "${workspaceFolder}\\chapter_5\\a.out"
         }
     ]
 }
