@@ -37,12 +37,18 @@ int my_getline(char s[], int max_len)
 {
   int c, i;
 
-  s[0] = '\0';
-
-  for (i = 0; i < max_len - 1 && ((c = getchar()) != '\n'); ++i)
+  for (i = 0; i < max_len - 1 && ((c = getchar()) != EOF && c != '\n'); ++i)
   {
     s[i] = c;
   }
+
+  if (c == '\n')
+  {
+    s[i] = c;
+    ++i;
+  }
+
+  s[i] = '\0';
 
   return i;
 }
