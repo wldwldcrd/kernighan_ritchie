@@ -7,6 +7,7 @@ static char daytab[2][13] = {
 
 int day_of_year(int year, int month, int day);
 void month_day(int year, int yearday, int *pmonth, int *pday);
+char *month_name(int n);
 
 int main(int argc, char const *argv[])
 {
@@ -36,7 +37,7 @@ int main(int argc, char const *argv[])
         else
         {
             month_day(atoi(argv[2]), atoi(argv[3]), &month, &day);
-            printf("Month: %d\nDay: %d\n", month, day);
+            printf("Month: %s\nDay: %d\n", month_name(month), day);
         }
     }
 
@@ -65,4 +66,15 @@ void month_day(int year, int yearday, int *pmonth, int *pday)
     }
     *pmonth = i;
     *pday = yearday;
+}
+
+char *month_name(int n)
+{
+    static char *name[] = {
+        "Illegal month",
+        "January", "February", "March",
+        "April", "May", "June",
+        "July", "August", "September",
+        "October", "November", "December"};
+    return (n < 1 || n > 12) ? name[0] : name[n];
 }
