@@ -9,7 +9,12 @@
             "cwd": "${workspaceFolder}\\chapter_5",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\chapter_5\\a.out"
+            "program": "${workspaceFolder}\\chapter_5\\a.out",
+            "args": [
+                "a",
+                "2022",
+                "284"
+            ]
         }
     ]
 }

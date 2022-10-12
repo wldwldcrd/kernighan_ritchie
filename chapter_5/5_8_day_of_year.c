@@ -16,13 +16,17 @@ int main(int argc, char const *argv[])
 {
     int i;
     int month, day;
+    const char **buf;
 
-    // arg printing
-    // printf("%d\n", argc);
-    // for (i = 0; i < argc; i++)
-    // {
-    //     printf("a%sa\n", argv[i]);
-    // }
+    buf = argv;
+
+    // arg printing but modifying argc and argv
+    i = argc;
+    printf("Arg num: %d\n", argc);
+    while (--i > 0)
+        printf((i > 1) ? "%s " : "%s\n", *++argv);
+
+    argv = buf;
 
     if (argv[1][0] == 'd')
     {
