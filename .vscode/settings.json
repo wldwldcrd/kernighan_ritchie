@@ -3,6 +3,7 @@
         "limits.h": "c",
         "stdio.h": "c",
         "ctype.h": "c",
-        "calc.h": "c"
+        "calc.h": "c",
+        "chapter_5.h": "c"
     }
 }
