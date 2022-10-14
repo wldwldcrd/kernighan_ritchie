@@ -17,5 +17,5 @@ void writelines(char *lineptr[], int nlines);
 // 1_19_longest_string.c
 int my_getline(char s[], int max_len);
 // sort
-void str_qsort(void *line_ptr[], int left, int right, int (*comp)(void *, void *));
+void str_qsort(void *line_ptr[], int left, int right, int reverse, int (*comp)(void *, void *));
 int numcmp(char *, char *);

@@ -5,7 +5,7 @@
 // void str_swap(char *v[], int i, int j);
 // int numcmp(char *, char *);
 
-void str_qsort(void *v[], int left, int right, int (*comp)(void *, void *))
+void str_qsort(void *v[], int left, int right, int reverse, int (*comp)(void *, void *))
 {
     int i, last;
     void str_swap(void *v[], int i, int j);
@@ -14,11 +14,19 @@ void str_qsort(void *v[], int left, int right, int (*comp)(void *, void *))
     str_swap(v, left, (left + right) / 2);
     last = left;
     for (i = left + 1; i <= right; i++)
-        if ((*comp)(v[i], v[left]) < 0)
-            str_swap(v, ++last, i);
+        if (reverse)
+        {
+            if ((*comp)(v[i], v[left]) > 0)
+                str_swap(v, ++last, i);
+        }
+        else
+        {
+            if ((*comp)(v[i], v[left]) < 0)
+                str_swap(v, ++last, i);
+        }
     str_swap(v, left, last);
-    str_qsort(v, left, last - 1, comp);
-    str_qsort(v, last + 1, right, comp);
+    str_qsort(v, left, last - 1, reverse, comp);
+    str_qsort(v, last + 1, right, reverse, comp);
 }
 
 void str_swap(void *v[], int i, int j)

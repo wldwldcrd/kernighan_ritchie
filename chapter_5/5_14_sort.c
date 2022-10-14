@@ -5,14 +5,29 @@
 int main(int argc, char const *argv[])
 {
     int nlines;
-    int numeric = 0;
+    int numeric = 0, reverse = 0;
+    char c;
     // arg processing
-    if (argc > 1 && strcmp(argv[1], "-n") == 0)
-        numeric = 1;
+    while (--argc > 0 && (*++argv)[0] == '-')
+        while (c = *++argv[0])
+            switch (c)
+            {
+            case 'n':
+                numeric = 1;
+                break;
+            case 'r':
+                reverse = 1;
+                break;
+            default:
+                printf("arg: illegal option%c\n", c);
+                argc = 0;
+                return -1;
+                break;
+            }
     // sorting
     if ((nlines = readlines(lineptr, MAXLINES)) >= 0)
     {
-        str_qsort((void **)lineptr, 0, nlines - 1, (int (*)(void *, void *))(numeric ? numcmp : strcmp));
+        str_qsort((void **)lineptr, 0, nlines - 1, reverse, (int (*)(void *, void *))(numeric ? numcmp : strcmp));
         writelines(lineptr, nlines);
         return 0;
     }
