@@ -8,13 +8,20 @@
             "type": "cppdbg",
             "cwd": "${workspaceFolder}\\chapter_5",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "5 Launch Program",
             "program": "${workspaceFolder}\\chapter_5\\a.out",
             "args": [
                 "a",
                 "2022",
                 "284"
             ]
+        }
+        {
+            "type": "cppdbg",
+            "cwd": "${workspaceFolder}\\chapter_6",
+            "request": "launch",
+            "name": "6 Launch Program",
+            "program": "${workspaceFolder}\\chapter_6\\a.out"
         }
     ]
 }
