@@ -55,11 +55,16 @@ int main(int argc, char const *argv[])
 
 int getword(char *word, int limit)
 {
-    int c;
+    int c, is_comment;
     char *w = word;
 
-    while (!isalpha(c = getchar()) && (c != '\n'))
-        ;
+    is_comment = 0;
+
+    while (!isalpha(c = getchar()) && (c != '\n') || is_comment)
+    {
+        if (c == '\"')
+            is_comment = 1 - is_comment;
+    };
     *(w++) = c;
     for (; --limit > 0; w++)
     {
