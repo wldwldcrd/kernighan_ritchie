@@ -8,10 +8,13 @@ struct tnode *talloc(void);
 char *my_strdup(char *);
 struct tnode *addtree(struct tnode *, char *);
 void treeprint(struct tnode *);
+struct tnode *add_sorted_tree(struct tnode *, struct tnode *);
+struct tnode *sort_tree(struct tnode *, struct tnode *);
 
 int main(int argc, char const *argv[])
 {
     struct tnode *root;
+    struct tnode *sorted_root;
     char word[MAXWORD];
 
     root = NULL;
@@ -19,7 +22,13 @@ int main(int argc, char const *argv[])
         if (isalpha(word[0]))
             root = addtree(root, word);
 
+    printf("Alphabetical:\n");
     treeprint(root);
+
+    sorted_root = sort_tree(sorted_root, root);
+
+    printf("Numerical:\n");
+    treeprint(sorted_root);
 
     return 0;
 }
@@ -74,3 +83,36 @@ char *my_strdup(char *s)
         strcpy(p, s);
     return p;
 };
+
+struct tnode *add_sorted_tree(struct tnode *p, struct tnode *new)
+{
+    int cond;
+
+    if (p == NULL)
+    {
+        p = talloc();
+        p->word = new->word;
+        p->freq = new->freq;
+        p->left = p->right = NULL;
+    }
+    else if ((new->freq) < (p->freq))
+    {
+        p->right = add_sorted_tree(p->right, new);
+    }
+    else
+    {
+        p->left = add_sorted_tree(p->left, new);
+    }
+    return p;
+}
+
+struct tnode *sort_tree(struct tnode *sorted, struct tnode *p)
+{
+
+    if (p != NULL)
+    {
+        sorted = sort_tree(sorted, p->left);
+        sorted = add_sorted_tree(sorted, p);
+        sorted = sort_tree(sorted, p->right);
+    }
+}
