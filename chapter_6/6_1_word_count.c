@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+#include <stddef.h>
 
 #define MAXWORD 100
-#define NKEYS 11
+#define NKEYS (sizeof keytab / sizeof keytab[0])
 struct key
 {
     char *word;
     int count;
 };
 
-struct key keytab[NKEYS] = {
+struct key keytab[] = {
     "auto",
     0,
     "break",
@@ -35,19 +36,19 @@ struct key keytab[NKEYS] = {
     0};
 
 int getword(char *, int);
-int binsearch(char *, struct key *, int);
+struct key *binsearch(char *, struct key *, int);
 
 int main(int argc, char const *argv[])
 {
-    int n;
+    struct key *n;
     char word[MAXWORD];
 
     while (getword(word, MAXWORD) != '\n')
         if (isalpha(word[0]))
-            if ((n = binsearch(word, keytab, NKEYS)) >= 0)
-                keytab[n].count++;
-    for (n = 0; n < NKEYS; n++)
-        if (keytab[n].count > 0)
+            if ((n = binsearch(word, keytab, NKEYS)) != NULL)
+                n->count++;
+    for (n = 0; n < keytab + NKEYS; n++)
+        if (n->count > 0)
             printf("%4d %s\n", keytab[n].count, keytab[n].word);
 
     return 0;
@@ -78,23 +79,22 @@ int getword(char *word, int limit)
 }
 
 // search word in tab[0..n-1]
-int binsearch(char *word, struct key tab[], int n)
+struct key *binsearch(char *word, struct key tab[], int n)
 {
     int cond;
-    int low, high, mid;
-
-    low = 0;
-    high = n - 1;
+    struct key *low = &tab[0];
+    struct key *high = &tab[n];
+    struct key *mid;
 
     while (low <= high)
     {
-        mid = (low + high) / 2;
-        if ((cond = strcmp(word, tab[mid].word)) < 0)
+        mid = low + (high - low) / 2;
+        if ((cond = strcmp(word, mid->word)) < 0)
             high = mid - 1;
         else if (cond > 0)
             low = mid + 1;
         else
             return mid;
     }
-    return -1;
+    return NULL;
 }
