@@ -4,6 +4,8 @@
         "stdio.h": "c",
         "ctype.h": "c",
         "calc.h": "c",
-        "chapter_5.h": "c"
+        "chapter_5.h": "c",
+        "unistd.h": "c",
+        "syscall.h": "c"
     }
 }
